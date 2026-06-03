@@ -42,11 +42,33 @@ def _parse_float(raw):
         return None
 
 
+YEAR_MIN = 860
+YEAR_MAX = 2026
+
+
+def _clean(meteorite):
+    """
+    Limpa e valida um registro:
+    - Ano fora do intervalo plausivel (860–2026) e tratado como None
+    - Coordenadas exatamente (0.0, 0.0) indicam ausencia de dado
+    """
+    year = meteorite['year']
+    if year is not None and not (YEAR_MIN <= year <= YEAR_MAX):
+        meteorite['year'] = None
+
+    if meteorite['lat'] == 0.0 and meteorite['lon'] == 0.0:
+        meteorite['lat'] = None
+        meteorite['lon'] = None
+
+    return meteorite
+
+
 def load_data(logger=None):
     if not os.path.exists(DATA_PATH):
         download_data(logger)
 
     meteorites = []
+    discarded = 0
     try:
         with open(DATA_PATH, encoding='utf-8') as f:
             reader = csv.DictReader(f)
@@ -63,11 +85,18 @@ def load_data(logger=None):
                         'lat':      _parse_float(row.get('reclat')),
                         'lon':      _parse_float(row.get('reclong')),
                     }
-                    meteorites.append(meteorite)
+                    if not meteorite['name']:
+                        discarded += 1
+                        continue
+                    meteorites.append(_clean(meteorite))
                 except Exception:
+                    discarded += 1
                     continue
     except FileNotFoundError as e:
         raise RuntimeError(f"Arquivo nao encontrado: {e}")
+
+    if logger and discarded:
+        logger(f"Limpeza: {discarded} registro(s) descartado(s) por dados invalidos")
 
     return meteorites
 
