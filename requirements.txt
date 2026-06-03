@@ -1,0 +1,5 @@
+# Sem dependencias externas obrigatorias.
+# A aplicacao usa apenas a biblioteca padrao do Python 3.8+.
+# Bibliotecas opcionais para visualizacao:
+# matplotlib
+# pandas
