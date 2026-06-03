@@ -170,7 +170,7 @@ def ordenar_por_massa():
         reverse = (ordem != '2')
         log(f"Quick Sort por massa, decrescente={reverse}")
         data = _meteorites_ll.to_list()
-        sorted_data = quick_sort(data, key_func=lambda m: m['mass'], reverse=reverse)
+        sorted_data = quick_sort(data, key_func=lambda m: m['mass'] if m['mass'] else None, reverse=reverse)
         print(f"\n  Top 15 meteoritos por massa:\n")
         for i, m in enumerate(sorted_data[:15], 1):
             print(f"  {_fmt_meteorite(m, i)}")
