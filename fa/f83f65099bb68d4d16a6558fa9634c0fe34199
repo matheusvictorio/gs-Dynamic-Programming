@@ -1,0 +1,19 @@
+src/data_handler.py
+  s_440d6e4297c1c9::t_fe94f20bf05dbc 45-65,71,88-91,93,98-99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "faf83f65099bb68d4d16a6558fa9634c0fe34199",
+  "prompts": {},
+  "sessions": {
+    "s_440d6e4297c1c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "adf78a86-ffa8-44c1-9e40-6dcd53899803",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "matheusvictorio <matheusvic2016@gmail.com>"
+    }
+  }
+}
