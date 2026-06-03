@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.pyo
+data/app.log
+data/por_massa.csv
+data/fila_exportada.csv
